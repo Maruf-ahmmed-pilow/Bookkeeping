@@ -1,0 +1,46 @@
+services:
+  db:
+    image: postgres:16
+    container_name: bookkeeping-db
+    environment:
+      POSTGRES_USER: bookkeeping
+      POSTGRES_PASSWORD: bookkeeping
+      POSTGRES_DB: bookkeeping
+    ports:
+      - "5433:5432"
+    volumes:
+      - bookkeeping_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U bookkeeping"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  # App services are opt-in: `docker compose --profile full up --build`.
+  # The default `docker compose up -d` starts only Postgres for local dev.
+  backend:
+    build: ./backend
+    profiles: ["full"]
+    environment:
+      # Reach Postgres over the compose network (port 5432, not the host 5433).
+      DATABASE_URL: postgresql+psycopg2://bookkeeping:bookkeeping@db:5432/bookkeeping
+      ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY:-}
+    command: >
+      sh -c "python -m app.seed &&
+             uvicorn app.main:app --host 0.0.0.0 --port 8000"
+    ports:
+      - "8000:8000"
+    depends_on:
+      db:
+        condition: service_healthy
+
+  frontend:
+    build: ./frontend
+    profiles: ["full"]
+    ports:
+      - "5173:80"
+    depends_on:
+      - backend
+
+volumes:
+  bookkeeping_pgdata:
