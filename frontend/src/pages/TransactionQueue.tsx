@@ -86,7 +86,7 @@ export function TransactionQueue() {
                 </td>
                 <td className="num">
                   {t.direction === "outflow" ? "-" : "+"}
-                  {money(t.amount).replace("$", "$")}
+                  {money(t.amount)}
                 </td>
                 <td>
                   {approvable ? (
