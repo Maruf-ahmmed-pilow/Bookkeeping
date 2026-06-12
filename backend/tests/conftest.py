@@ -9,7 +9,16 @@ flow deterministically.
 from __future__ import annotations
 
 import datetime as dt
+import os
 from collections.abc import Iterator
+
+# Force an offline, in-memory database for the whole suite *before* the app
+# package is imported. ``app.database`` builds its engine at import time from
+# ``settings.database_url``, and ``app.main``'s lifespan calls ``create_all()``
+# on that engine — so without this the TestClient startup would try to reach
+# PostgreSQL and fail in CI, where no database is running. This keeps the suite
+# hermetic, as the module docstring promises.
+os.environ["DATABASE_URL"] = "sqlite://"
 
 import pytest
 from fastapi.testclient import TestClient
