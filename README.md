@@ -1,11 +1,9 @@
 # Bookkeeping AI Control Tower — Core MVP
 
-![CI](https://github.com/OWNER/REPO/actions/workflows/ci.yml/badge.svg)
+![CI](https://github.com/Maruf-ahmmed-pilow/Bookkeeping/actions/workflows/ci.yml/badge.svg)
 ![Python](https://img.shields.io/badge/python-3.11%2B-blue)
 ![Node](https://img.shields.io/badge/node-20%2B-green)
 ![License](https://img.shields.io/badge/license-MIT-lightgrey)
-
-> Replace `OWNER/REPO` in the CI badge above once the repository is pushed to GitHub.
 
 A runnable vertical slice of the Enterprise AI-Assisted Bookkeeping Platform from the SRS.
 It implements the most important end-to-end flow:
