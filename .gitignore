@@ -18,3 +18,6 @@ frontend/tsconfig.tsbuildinfo
 .idea/
 .vscode/
 *.swp
+
+# Claude Code local settings
+.claude/settings.local.json
