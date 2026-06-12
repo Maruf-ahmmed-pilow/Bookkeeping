@@ -24,13 +24,13 @@ backend-seed: ## Seed the database (Chart of Accounts + sample transactions)
 	cd backend && python -m app.seed
 
 backend-run: ## Run the FastAPI dev server (http://localhost:8000)
-	cd backend && uvicorn app.main:app --reload
+	cd backend && python -m uvicorn app.main:app --reload
 
 backend-lint: ## Lint the backend with ruff
-	cd backend && ruff check .
+	cd backend && python -m ruff check .
 
 backend-test: ## Run backend tests
-	cd backend && pytest
+	cd backend && python -m pytest
 
 ## --- Frontend ---
 frontend-install: ## Install frontend dependencies

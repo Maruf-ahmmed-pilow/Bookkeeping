@@ -80,7 +80,7 @@ python3 -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
 cp .env.example .env          # optionally add your ANTHROPIC_API_KEY
 python -m app.seed            # loads the Chart of Accounts + 12 sample transactions
-uvicorn app.main:app --reload # http://localhost:8000  (docs at /docs)
+python -m uvicorn app.main:app --reload # http://localhost:8000  (docs at /docs)
 ```
 
 To use the real Claude classifier, put your key in `backend/.env`:
